@@ -1,0 +1,15 @@
+TrafficLightProject/
+¦-- src/                  # Source code
+¦   +-- main.c            # Main program
+¦   +-- traffic_light.c   # Traffic light logic
+¦   +-- gpio.c            # GPIO configuration functions
+¦   +-- timer.c           # Timer functions (if using a timer)
+¦-- inc/                  # Header files
+¦   +-- traffic_light.h   
+¦   +-- gpio.h            
+¦   +-- timer.h                    
+¦-- docs/                 # Documentation
+¦   +-- README.md         
+¦   +-- Circuit_Diagram.png
+¦-- Makefile / CMakeLists.txt  # Build system (if using one)
++-- traffic_light_project.ino  # If using Arduino
