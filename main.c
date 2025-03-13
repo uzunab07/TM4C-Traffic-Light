@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "TM4C123GH6PM.h"
+#include "traffic_light.h"
 /**
  * Traffic Light Project - Embedded Systems
  *
@@ -27,24 +28,13 @@
  *    - Implement PWM for LED brightness control.
  *    - Use an LCD or seven-segment display for countdown timer.
  */
+ 
 
 int main(){
-	//Clock gating gpiof and b
-	SYSCTL->RCGCGPIO |= (1U<<5 | 1U<<1);
-	 while ((SYSCTL->PRGPIO & ((1U << 5) | (1U << 1))) == 0);
-	
-	GPIOF->DEN |= (1U<<1 | 1U<<2);
-	GPIOF->DIR |= (1U<<1 | 1U<<2);
-	GPIOB->DEN |= (1U<<2);
-	GPIOB->DIR |= (1U<<2);
-	
-  
-	while(1){
- 	GPIOB->DATA_Bits[1U<<2] = 1U<<2;
-	GPIOF->DATA_Bits[1U<<2] = 1U<<2;	
-	GPIOF->DATA_Bits[1U<<1] = 1U<<1;
-	
+	TrafficLight_Init();
 		
+	while(1){
+		TrafficLight_Update();
 	}
 	return 0;
 }

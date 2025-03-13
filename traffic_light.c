@@ -1,6 +1,9 @@
 #include "traffic_light.h"
 #include "TM4C123GH6PM.h"
 
+#define WAIT_TIME 10000000
+#define BLINK_TIME 2000000
+
 /**
  * @brief Initializes the traffic light system.
  *
@@ -21,8 +24,28 @@ void TrafficLight_Init(void){
 	//Set the initial state of my system
 	TrafficLight_SetState(RED_STATE);
 }
+
+// Update the state base on the time elapsed 
 void TrafficLight_Update(void){
-	
+	for (int i=0; i<=WAIT_TIME+1; i++){
+		if (i>WAIT_TIME){
+			switch (currentState){
+				case RED_STATE:
+					currentState  = GREEN_STATE;
+					TrafficLight_SetState(currentState);
+				break;
+				case GREEN_STATE:
+					currentState = YELLOW_STATE;
+					TrafficLight_SetState(currentState);
+				break;
+				case YELLOW_STATE:
+					currentState = RED_STATE;
+					TrafficLight_SetState(currentState);
+				break;
+				
+			}
+		}
+	}
 }
 
 /**
@@ -37,6 +60,9 @@ void TrafficLight_Update(void){
 void TrafficLight_SetState(TrafficLightState newState){
 	currentState = newState;
 	
+	//Turn off all LEDs
+	GPIOB->DATA &= 0x0;
+	
 	//Activate the current LED based on the state
 	switch(currentState){
 		case RED_STATE:
@@ -47,10 +73,26 @@ void TrafficLight_SetState(TrafficLightState newState){
 		break;
 		case YELLOW_STATE:
 			GPIOB->DATA_Bits[YELLOW_LED_PIN] |= YELLOW_LED_PIN;
+		
 		break;
 	}
 }
+
+/**
+ * @brief return the current state of the system
+ *
+ *  
+ *
+ * @param None
+ * @return currentState
+ */
 TrafficLightState TrafficLight_GetState(void){
 	
-	return 0;
+	return currentState;
 }
+
+ void delay(int count){
+	
+	 for(int i=0; i<=count; i++){}
+ 
+ } 

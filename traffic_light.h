@@ -24,6 +24,7 @@ void TrafficLight_Init(void);
 void TrafficLight_Update(void);
 void TrafficLight_SetState(TrafficLightState newState);
 TrafficLightState TrafficLight_GetState(void);
-
+void TrafficLight_Blink();
+void delay(int count);
 
 #endif /* TRAFFIC_LIGHT_H */
